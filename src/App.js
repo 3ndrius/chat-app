@@ -5,8 +5,15 @@ import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
 import NewRoomForm from './components/NewRoomForm'
 
-
+import { tokenUrl, instanceLocator } from '.config'
 class App extends Component {
+
+  componentDidMount() {
+    const chatManager = new Chatkit.ChatManager({
+        instanceLocator: instanceLocator
+    })
+}
+
   render() {
     return (
       <div className="app">
