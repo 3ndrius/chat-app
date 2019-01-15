@@ -10,10 +10,25 @@ class App extends Component {
 
   componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
-        instanceLocator: instanceLocator
+        instanceLocator,
+        userId: 'perborgen',
+        tokenProvider: new Chatkit.TokenProvider({
+            url: tokenUrl
+        })
+    })
+    
+    chatManager.connect()
+    .then(currentUser => {
+        currentUser.subscribeToRoom({
+            roomId: 9434230,
+            hooks: {
+                onNewMessage: message => {
+                    console.log('message.text: ', message.text);
+                }
+            }
+        })
     })
 }
-
   render() {
     return (
       <div className="app">
