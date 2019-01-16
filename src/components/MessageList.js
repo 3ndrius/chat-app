@@ -21,7 +21,7 @@ export default class MessageList extends Component {
       <div className="message-list">
             {DUMMY_DATA.map((message, index) => {
                     return (
-                        <div>{message.text}</div>
+                        <div key={index}>{message.text}</div>
                     )
                 })}
       </div>
