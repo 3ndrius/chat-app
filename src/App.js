@@ -8,6 +8,9 @@ import MessageList from './components/MessageList'
 import { tokenUrl, instanceLocator } from './config'
 class App extends Component {
 
+    state = {
+        messages: []
+    }
   componentDidMount = () => {
     const chatManager = new Chatkit.ChatManager({
         instanceLocator,
@@ -23,7 +26,10 @@ class App extends Component {
             roomId: "19651166",
             hooks: {
                 onMessage: message => {
-                    console.log('message.text: ', message.text);
+                    console.log('message.text: ', message.text)
+                    this.setState({
+                        messages:[...this.state.messages, message]
+                    })
                 }
             }
         })
@@ -35,7 +41,7 @@ class App extends Component {
     return (
       <div className="App">
       {/* <RoomList /> */}
-      <MessageList />
+      <MessageList messages={this.state.messages}/>
       {/* <SendMessageForm />
       <NewRoomForm /> */}
   </div>

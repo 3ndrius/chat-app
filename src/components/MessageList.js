@@ -1,27 +1,18 @@
 import React, { Component } from 'react'
 
-const DUMMY_DATA = [
-    {
-        senderId: 'perborgen',
-        text: 'Hey, how is it going?'
-    },
-    {
-        senderId: 'janedoe',
-        text: 'Great! How about you?'
-    },
-    {
-        senderId: 'perborgen',
-        text: 'Good to hear! I am great as well'
-    }
-]
+
 
 export default class MessageList extends Component {
+
+   
   render() {
+    console.log("props",this.props.messages);
+      const {messages} = this.props;
     return (
       <div className="message-list">
-            {DUMMY_DATA.map((message, index) => {
+            {messages && messages.map((msg) => {
                     return (
-                        <div key={index}>{message.text}</div>
+                        <div key={msg.id}>{msg.text}</div>
                     )
                 })}
       </div>
