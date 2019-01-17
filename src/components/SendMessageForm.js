@@ -1,22 +1,30 @@
 import React, { Component } from 'react'
 
 export default class SendMessageForm extends Component {
-  state = {
-    value: ''
-  }
-  handleChange(e){
+
+
+    state = {
+        message: ''
+    }
+     handleChange = (e) => {
     this.setState({
-      value: e.target.value
+      message: e.target.message
     })
   }
+  handleSubmit = (e) =>{
+    e.preventDefault();
+      this.props.sendMessage(this.state.message)
+   
+  }
   render() {
+    console.log(this.props.sendMessage);
     return (
-      <form className="send-message-form">
+      <form className="send-message-form" onSubmit={this.handleSubmit}>
       <input
           placeholder="SendMessageForm"
           type="text"
           onChange={this.handleChange} 
-          value={this.state.value}/>
+          value={this.state.message}/>
       </form>
     )
   }
