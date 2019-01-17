@@ -21,7 +21,8 @@ class App extends Component {
     })
     chatManager.connect()
     .then(currentUser => {
-        currentUser.subscribeToRoom({
+        this.currentUser = currentUser
+        this.currentUser.subscribeToRoom({
             roomId: "19651166",
             hooks: {
                 onMessage: message => {
@@ -36,12 +37,20 @@ class App extends Component {
         console.log('Error on connection', err)
       })
 }
+sendMessage = (text) =>{
+    this.currentUser.sendMessage({
+        text,
+        roomId: "19651166"
+    }).then(MessageId => {
+        console.log("Added message to room");
+    })
+}
   render() {
     return (
       <div className="App">
       <RoomList />
-      <MessageList messages={this.state.messages}/>
-      <SendMessageForm />
+      <MessageList messages={this.state.messages} />
+      <SendMessageForm sendMessage={this.sendMessage} />
       <NewRoomForm />
   </div>
     );
