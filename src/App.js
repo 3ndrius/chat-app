@@ -52,11 +52,14 @@ sendMessage = (text) =>{
     })
 }
     subscribeToRoom = (roomId) => {
+        this.setState({
+            messages: []
+        })
     this.currentUser.subscribeToRoom({
         roomId: roomId,
         hooks: {
             onMessage: message => {
-              
+        
                 this.setState({
                     messages:[...this.state.messages, message]
                 })
