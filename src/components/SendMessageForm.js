@@ -8,7 +8,7 @@ export default class SendMessageForm extends Component {
     }
      handleChange = (e) => {
     this.setState({
-      message: e.target.message
+      message: e.target.value
     })
   }
   handleSubmit = (e) =>{
