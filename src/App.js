@@ -9,7 +9,10 @@ import { tokenUrl, instanceLocator } from './config'
 class App extends Component {
 
     state = {
-        messages: []
+        messages: [],
+        joinableRooms: [],
+        joinedRooms: []
+
     }
   componentDidMount = () => {
     const chatManager = new Chatkit.ChatManager({
@@ -22,11 +25,20 @@ class App extends Component {
     chatManager.connect()
     .then(currentUser => {
         this.currentUser = currentUser
+
+        this.currentUser.getJoinableRooms()
+        .then(joinableRooms => {
+            this.setState({
+               joinableRooms,
+               joinedRooms: this.currentUser.rooms
+            })
+        }).catch(err => console.log('error on joinablerooms', err))
+
         this.currentUser.subscribeToRoom({
             roomId: "19651166",
             hooks: {
                 onMessage: message => {
-                    console.log('message.text: ', message.text)
+                  
                     this.setState({
                         messages:[...this.state.messages, message]
                     })
@@ -42,13 +54,13 @@ sendMessage = (text) =>{
         text,
         roomId: "19651166"
     }).then(MessageId => {
-        console.log("Added message to room");
+        
     })
 }
   render() {
     return (
       <div className="App">
-      <RoomList />
+      <RoomList rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
       <MessageList messages={this.state.messages} />
       <SendMessageForm sendMessage={this.sendMessage} />
       <NewRoomForm />

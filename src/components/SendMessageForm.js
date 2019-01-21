@@ -17,7 +17,7 @@ export default class SendMessageForm extends Component {
    
   }
   render() {
-    console.log(this.props.sendMessage);
+   
     return (
       <form className="send-message-form" onSubmit={this.handleSubmit}>
       <input
