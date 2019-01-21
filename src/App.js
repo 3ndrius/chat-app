@@ -65,7 +65,12 @@ sendMessage = (text) =>{
                 })
             }
         }
-    })
+    }).then(room => {
+        this.setState({
+            roomId: room.id
+        })
+        this.getRooms()
+    }).catch(err => console.log(' error on subscribing to room: ' , err ))
 }
 
   render() {
