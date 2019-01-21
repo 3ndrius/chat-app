@@ -10,9 +10,11 @@ export default class RoomList extends Component {
       <ul>
         {rooms && rooms.map(room => {
           return(
-            <li key={room.id}>
-              <a href="/"># {room.name}</a>
-            </li>
+            <li key={room.id} className="room">
+            <a onClick={() => this.props.subscribeToRoom(room.id)}
+                href="#">
+                # {room.name}</a>
+        </li>
           )
         })}
       </ul>
