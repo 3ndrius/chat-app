@@ -7,12 +7,10 @@ import NewRoomForm from './components/NewRoomForm'
 
 import { tokenUrl, instanceLocator } from './config'
 class App extends Component {
-
     state = {
         messages: [],
         joinableRooms: [],
         joinedRooms: []
-
     }
   componentDidMount = () => {
     const chatManager = new Chatkit.ChatManager({
@@ -25,8 +23,7 @@ class App extends Component {
     chatManager.connect()
     .then(currentUser => {
         this.currentUser = currentUser
-        this.getRooms()
-       
+        this.getRooms()     
     })
         .catch(err => {
         console.log('Error on connection', err)
@@ -41,8 +38,6 @@ class App extends Component {
             })
         }).catch(err => console.log('error on joinablerooms', err))
     }
-    
-
 sendMessage = (text) =>{
     this.currentUser.sendMessage({
         text,
@@ -72,7 +67,6 @@ sendMessage = (text) =>{
         this.getRooms()
     }).catch(err => console.log(' error on subscribing to room: ' , err ))
 }
-
   render() {
     return (
       <div className="App">
@@ -86,5 +80,4 @@ sendMessage = (text) =>{
     );
   }
 }
-
 export default App;
