@@ -69,7 +69,7 @@ sendMessage = (text) =>{
 }
   render() {
     return (
-      <div className="App">
+      <div className="app">
       <RoomList 
       subscribeToRoom={this.subscribeToRoom}
       rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
