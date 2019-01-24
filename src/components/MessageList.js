@@ -15,6 +15,15 @@ export default class MessageList extends Component {
   }
 
   render() {
+    if (!this.props.roomId) {
+      return (
+          <div className="message-list">
+              <div className="join-room">
+                  &larr; Join a room!
+              </div>
+          </div>
+      )
+  }
     const {messages} = this.props;
     return (
       <div className="message-list">

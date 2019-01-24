@@ -22,7 +22,7 @@ html, body {
 .app {
     display: grid;
     height: 800px;
-    max-width: 1200px;
+    max-width: 1300px;
     margin:0 auto;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 60px;
