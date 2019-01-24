@@ -8,6 +8,7 @@ import NewRoomForm from './components/NewRoomForm'
 import { tokenUrl, instanceLocator } from './config'
 class App extends Component {
     state = {
+        roomId: null,
         messages: [],
         joinableRooms: [],
         joinedRooms: []
@@ -23,7 +24,7 @@ class App extends Component {
     chatManager.connect()
     .then(currentUser => {
         this.currentUser = currentUser
-        this.getRooms()     
+        this.getRooms() 
     })
         .catch(err => {
         console.log('Error on connection', err)
@@ -41,7 +42,7 @@ class App extends Component {
 sendMessage = (text) =>{
     this.currentUser.sendMessage({
         text,
-        roomId: "19651166"
+        roomId: this.state.roomId
     }).then(MessageId => {
         
     })
@@ -65,17 +66,28 @@ sendMessage = (text) =>{
             roomId: room.id
         })
         this.getRooms()
-    }).catch(err => console.log(' error on subscribing to room: ' , err ))
-}
+    }).catch(err => console.log(' error on subscribing to room: ' , err ));
+    }
+    createRoom = (name) => {
+        this.currentUser.createRoom({
+            name
+        })
+        .then(room => this.subscribeToRoom(room.id))
+        .catch(err  => console.log("error", err))
+       
+    }
   render() {
     return (
-      <div className="App">
+      <div className="app">
       <RoomList 
+      roomId={this.state.roomId}
       subscribeToRoom={this.subscribeToRoom}
       rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
-      <MessageList messages={this.state.messages} />
-      <SendMessageForm sendMessage={this.sendMessage} />
-      <NewRoomForm />
+      <MessageList messages={this.state.messages} roomId ={this.state.roomId} />
+      <SendMessageForm sendMessage={this.sendMessage} 
+      disabled={!this.state.roomId}
+      />
+      <NewRoomForm createRoom={this.createRoom}/>
   </div>
     );
   }

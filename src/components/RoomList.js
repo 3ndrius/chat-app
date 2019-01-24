@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 
 export default class RoomList extends Component {
-
-
+  
   render() {
-    console.log(this.props.rooms);
+
     const {rooms} = this.props;
+    const orderedRooms = [...rooms].sort((a, b) => a.id - b.id);
+
     return (
+    <div className="rooms-list">
       <ul>
-        {rooms && rooms.map(room => {
+        {orderedRooms && orderedRooms.map(room => {
+          const active = this.props.roomId === room.id ? "active" : " ";
           return(
-            <li key={room.id} className="room">
+            <li key={room.id} className={`room ${active}`}>
             <a onClick={() => this.props.subscribeToRoom(room.id)}
                 href="#">
                 # {room.name}</a>
@@ -18,6 +21,7 @@ export default class RoomList extends Component {
           )
         })}
       </ul>
+    </div>
     )
   }
 }
