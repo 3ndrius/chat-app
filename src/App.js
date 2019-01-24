@@ -41,7 +41,7 @@ class App extends Component {
 sendMessage = (text) =>{
     this.currentUser.sendMessage({
         text,
-        roomId: "19651166"
+        roomId: this.state.roomId
     }).then(MessageId => {
         
     })
@@ -71,6 +71,7 @@ sendMessage = (text) =>{
     return (
       <div className="app">
       <RoomList 
+      roomId={this.state.roomId}
       subscribeToRoom={this.subscribeToRoom}
       rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
       <MessageList messages={this.state.messages} />
