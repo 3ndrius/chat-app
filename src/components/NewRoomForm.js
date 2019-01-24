@@ -13,19 +13,15 @@ class NewRoomForm extends Component {
     console.log(this.state.roomName);
   }
 
-
   handleSubmit = (e) => {
-
       e.preventDefault();
       this.props.createRoom(this.state.roomName)
       this.setState({roomName: ''})
-  
-  
 }
   render() {
     console.log(this.props.createRoom);
     return (
-      <div>
+      <div className="new-room-form">
                 <form onSubmit={this.handleSubmit}>
                     <input
                         onChange={this.handleChange}
